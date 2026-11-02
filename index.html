@@ -1,0 +1,266 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Solvia · Dimensionamiento y cotización solar</title>
+<meta name="description" content="Solvia: de la información de consumo de un cliente a una propuesta técnica y económica de energía solar. Proyecto TE1020 · Análisis de Circuitos Eléctricos.">
+<link rel="icon" href="logo.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600;9..144,700&family=Outfit:wght@400;500;600;700&display=swap">
+<style>
+:root{
+  --cream:#FFF4E0;
+  --cream-2:#FFE9C7;
+  --orange:#F97316;
+  --yellow:#FBBF24;
+  --brown:#7C2D12;
+  --brown-2:#9A3412;
+  --ink:#4A1A0A;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--cream);color:var(--ink);font-family:'Outfit',system-ui,sans-serif;font-size:18px;line-height:1.6}
+h1,h2,h3{font-family:'Fraunces',Georgia,serif;color:var(--brown);line-height:1.1;margin:0}
+a{color:var(--brown)}
+.wrap{max-width:1100px;margin:0 auto;padding:0 24px}
+.eyebrow{font-weight:600;letter-spacing:.22em;text-transform:uppercase;font-size:14px;color:var(--brown-2);margin:0 0 14px}
+section{padding:88px 0}
+
+/* header */
+header{position:sticky;top:0;z-index:10;background:rgba(255,244,224,.94);backdrop-filter:blur(6px);border-bottom:1px solid rgba(124,45,18,.15)}
+.bar{display:flex;align-items:center;justify-content:space-between;height:68px}
+.brand{display:flex;align-items:center;gap:12px;text-decoration:none}
+.brand span{font-family:'Fraunces',Georgia,serif;font-weight:700;font-size:28px;color:var(--brown)}
+nav{display:flex;gap:26px}
+nav a{text-decoration:none;font-weight:500;font-size:16px;color:var(--brown)}
+nav a:hover{text-decoration:underline}
+@media(max-width:760px){nav{display:none}}
+
+/* hero */
+.hero{padding:72px 0 96px;text-align:center}
+.hero .mark{width:190px;height:190px}
+.hero h1{font-size:clamp(40px,7vw,76px);margin:22px auto 18px;max-width:14ch}
+.hero p.lead{max-width:60ch;margin:0 auto 30px;font-size:21px}
+.pill{display:inline-block;background:var(--brown);color:var(--cream);font-weight:700;letter-spacing:.14em;padding:8px 22px;border-radius:999px;font-size:20px}
+.actions{display:flex;flex-wrap:wrap;gap:14px;justify-content:center;margin-top:30px}
+.btn{display:inline-block;padding:14px 28px;border-radius:999px;font-weight:600;text-decoration:none;font-size:17px}
+.btn.primary{background:var(--brown);color:var(--cream)}
+.btn.primary:hover{background:var(--ink)}
+.btn.ghost{border:2px solid var(--brown);color:var(--brown)}
+.btn.ghost:hover{background:var(--cream-2)}
+
+/* generic */
+.head{max-width:720px;margin-bottom:44px}
+.head h2{font-size:clamp(32px,4.5vw,48px);margin-bottom:14px}
+.grid{display:grid;gap:20px;grid-template-columns:repeat(auto-fit,minmax(250px,1fr))}
+.card{background:#fff;border:1px solid rgba(124,45,18,.18);border-radius:20px;padding:26px}
+.card .ico{width:46px;height:46px;border-radius:12px;background:var(--brown);display:flex;align-items:center;justify-content:center;margin-bottom:16px}
+.card h3{font-size:24px;margin-bottom:8px}
+.card p{margin:0;font-size:16.5px}
+
+/* dark band */
+.dark{background:var(--brown);color:var(--cream)}
+.dark h2,.dark h3{color:var(--cream)}
+.dark .eyebrow{color:var(--yellow)}
+.formulas{display:grid;gap:20px;grid-template-columns:repeat(auto-fit,minmax(240px,1fr))}
+.formula{border:1px solid rgba(255,244,224,.3);border-radius:20px;padding:24px}
+.formula .eq{font-family:'Fraunces',Georgia,serif;font-size:34px;color:var(--yellow);margin-bottom:8px}
+.formula h3{font-size:21px;margin-bottom:6px}
+.formula p{margin:0;font-size:16px;opacity:.92}
+
+/* timeline */
+.steps{display:grid;gap:18px;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));counter-reset:s}
+.step{background:var(--cream-2);border-radius:20px;padding:24px;position:relative}
+.step .n{font-family:'Fraunces',Georgia,serif;font-size:44px;font-weight:700;color:var(--brown)}
+.step .d{font-size:14px;font-weight:600;letter-spacing:.1em;color:var(--brown-2);text-transform:uppercase}
+.step h3{font-size:21px;margin:8px 0 6px}
+.step p{margin:0;font-size:15.5px}
+
+/* report */
+.two{display:grid;gap:48px;grid-template-columns:1fr 1fr;align-items:center}
+@media(max-width:820px){.two{grid-template-columns:1fr}}
+.list{list-style:none;padding:0;margin:0;display:grid;gap:12px}
+.list li{display:flex;gap:12px;align-items:flex-start}
+.list li::before{content:"";flex:none;width:12px;height:12px;margin-top:9px;background:var(--orange);border-radius:3px}
+.doc{background:#fff;border:1px solid rgba(124,45,18,.2);border-radius:18px;padding:34px;box-shadow:0 18px 40px -22px rgba(124,45,18,.5)}
+.doc .top{height:10px;border-radius:5px;background:linear-gradient(90deg,var(--brown) 0 60%,var(--orange) 60% 80%,var(--yellow) 80%);margin-bottom:22px}
+.doc h3{font-size:26px;margin-bottom:6px}
+.doc .row{display:flex;justify-content:space-between;gap:12px;padding:10px 0;border-bottom:1px dashed rgba(124,45,18,.3);font-size:16px}
+.doc .row:last-child{border:0}
+.doc .row b{color:var(--brown)}
+
+/* notes */
+.note{background:var(--cream-2);border-left:6px solid var(--orange);border-radius:12px;padding:22px 26px;max-width:820px}
+.note p{margin:0 0 10px}
+.note p:last-child{margin:0}
+
+footer{background:var(--ink);color:var(--cream);padding:44px 0;text-align:center;font-size:16px}
+footer .pill{background:var(--yellow);color:var(--ink);font-size:18px;margin-bottom:14px}
+footer p{margin:6px 0;opacity:.9}
+</style>
+</head>
+<body>
+
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <defs>
+    <symbol id="logo" viewBox="0 0 220 220">
+      <clipPath id="disc"><circle cx="110" cy="110" r="100"/></clipPath>
+      <circle cx="110" cy="110" r="100" fill="#7C2D12"/>
+      <g clip-path="url(#disc)" stroke="#F97316" stroke-width="2.5" opacity="0.8">
+        <line x1="60" y1="0" x2="60" y2="220"/><line x1="110" y1="0" x2="110" y2="220"/><line x1="160" y1="0" x2="160" y2="220"/>
+        <line x1="0" y1="60" x2="220" y2="60"/><line x1="0" y1="110" x2="220" y2="110"/><line x1="0" y1="160" x2="220" y2="160"/>
+      </g>
+      <polygon points="124,34 72,118 106,118 92,186 150,98 114,98" fill="#FBBF24"/>
+    </symbol>
+  </defs>
+</svg>
+
+<header>
+  <div class="wrap bar">
+    <a class="brand" href="#inicio" aria-label="Solvia, inicio">
+      <svg width="40" height="40" role="img" aria-label="Logo de Solvia"><use href="#logo"/></svg>
+      <span>Solvia</span>
+    </a>
+    <nav aria-label="Principal">
+      <a href="#reto">El reto</a>
+      <a href="#solucion">La solución</a>
+      <a href="#circuitos">Circuitos</a>
+      <a href="#ruta">Ruta</a>
+      <a href="#propuesta">Propuesta</a>
+    </nav>
+  </div>
+</header>
+
+<main>
+<section class="hero" id="inicio">
+  <div class="wrap">
+    <svg class="mark" role="img" aria-label="Rayo sobre una cuadrícula de celdas solares"><use href="#logo"/></svg>
+    <h1>Del recibo de luz a una propuesta solar clara</h1>
+    <p class="lead">Solvia convierte el consumo de un cliente en un dimensionamiento fotovoltaico, una cotización con equipos reales y un reporte que cualquiera puede entender.</p>
+    <span class="pill">A01744281</span>
+    <div class="actions">
+      <a class="btn primary" href="#solucion">Conocer la solución</a>
+      <a class="btn ghost" href="#propuesta">Ver la propuesta</a>
+    </div>
+  </div>
+</section>
+
+<section id="reto" style="background:var(--cream-2)">
+  <div class="wrap">
+    <div class="head">
+      <p class="eyebrow">La situación-problema</p>
+      <h2>De estudiante de ingeniería a consultor en energía solar</h2>
+      <p>Una empresa de soluciones fotovoltaicas necesita pasar de las ideas a las propuestas de venta. Su equipo requiere una herramienta que registre cuánto consume un cliente, seleccione paneles, inversores y baterías que existan en el mercado, y explique la inversión, el ahorro estimado y el periodo de recuperación.</p>
+      <p>El caso inicial es un aula escolar. La pregunta que guía el proyecto: <strong>¿cómo convertir un análisis de circuitos eléctricos en una herramienta confiable para cotizar y comunicar valor?</strong></p>
+    </div>
+  </div>
+</section>
+
+<section id="solucion">
+  <div class="wrap">
+    <div class="head">
+      <p class="eyebrow">La solución</p>
+      <h2>Siete módulos, un solo flujo de trabajo</h2>
+      <p>Una aplicación web autocontenida: sin base de datos, con catálogos locales y todos los cálculos ejecutándose en el navegador.</p>
+    </div>
+    <div class="grid">
+      <article class="card"><div class="ico"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#FFF4E0" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 21V9l9-6 9 6v12"/><path d="M9 21v-6h6v6"/></svg></div><h3>Consumo del aula</h3><p>Registra equipos, cantidad, potencia y tiempo de uso para estimar la demanda y la energía consumida.</p></article>
+      <article class="card"><div class="ico"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#FFF4E0" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v3M12 19v3M2 12h3M19 12h3M5 5l2 2M17 17l2 2M19 5l-2 2M7 17l-2 2"/></svg></div><h3>Paneles solares</h3><p>Calcula cantidad, potencia y configuración serie/paralelo según la demanda y las horas solares pico.</p></article>
+      <article class="card"><div class="ico"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#FFF4E0" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M13 2 4 14h7l-1 8 9-12h-7z"/></svg></div><h3>Inversor</h3><p>Selecciona un equipo real y verifica potencia, tensiones, corrientes y compatibilidad con el arreglo.</p></article>
+      <article class="card"><div class="ico"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#FFF4E0" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="7" width="16" height="10" rx="2"/><path d="M21 11v2M7 10v4M11 10v4"/></svg></div><h3>Baterías</h3><p>Estima capacidad, configuración y autonomía, indicando siempre los supuestos y los límites del cálculo.</p></article>
+      <article class="card"><div class="ico"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#FFF4E0" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 6h16M4 12h16M4 18h10"/></svg></div><h3>Catálogo comercial</h3><p>Productos reales con marca, modelo, especificaciones, precio, proveedor, enlace y fecha de consulta.</p></article>
+      <article class="card"><div class="ico"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#FFF4E0" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 17l6-6 4 4 8-8"/><path d="M15 7h6v6"/></svg></div><h3>Evaluación económica</h3><p>Calcula inversión, ahorro estimado y retorno a partir del costo de la electricidad en MXN/kWh que introduce el usuario.</p></article>
+      <article class="card"><div class="ico"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#FFF4E0" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8z"/><path d="M14 3v5h5M9 13h6M9 17h6"/></svg></div><h3>Reporte PDF</h3><p>Una propuesta técnico-comercial legible y profesional, pensada para un cliente que no es especialista.</p></article>
+    </div>
+  </div>
+</section>
+
+<section id="circuitos" class="dark">
+  <div class="wrap">
+    <div class="head">
+      <p class="eyebrow">El fundamento</p>
+      <h2>Análisis de circuitos detrás de cada número</h2>
+      <p>Las cifras de la cotización salen de principios de circuitos que se pueden revisar y comprobar a mano.</p>
+    </div>
+    <div class="formulas">
+      <div class="formula"><div class="eq">E = P · t</div><h3>kW vs. kWh</h3><p>La potencia es la demanda en un instante; la energía es lo que se consume y se paga con el tiempo.</p></div>
+      <div class="formula"><div class="eq">P = V · I</div><h3>Potencia eléctrica</h3><p>Relaciona tensión y corriente para verificar que cada equipo trabaja dentro de sus límites.</p></div>
+      <div class="formula"><div class="eq">V = I · R</div><h3>Ley de Ohm</h3><p>Base del análisis del arreglo y de las caídas de tensión en el sistema.</p></div>
+      <div class="formula"><div class="eq">Serie · Paralelo</div><h3>Configuración del arreglo</h3><p>En serie se suman las tensiones; en paralelo se suman las corrientes. De ahí sale la compatibilidad con el inversor.</p></div>
+    </div>
+  </div>
+</section>
+
+<section id="ruta">
+  <div class="wrap">
+    <div class="head">
+      <p class="eyebrow">Ruta de trabajo</p>
+      <h2>Cinco semanas, cinco evidencias</h2>
+    </div>
+    <div class="steps">
+      <div class="step"><div class="n">1</div><div class="d">2–6 nov</div><h3>Ingreso</h3><p>Herramientas, repositorio, interfaz inicial y GitHub Pages. Primera versión publicada.</p></div>
+      <div class="step"><div class="n">2</div><div class="d">9–13 nov</div><h3>Conocer al cliente</h3><p>Inventario de cargas del aula, potencia y horas de operación. Módulo de consumo calculable.</p></div>
+      <div class="step"><div class="n">3</div><div class="d">16–20 nov</div><h3>Componentes reales</h3><p>Paneles, conexiones y catálogo con fichas técnicas y precios verificables.</p></div>
+      <div class="step"><div class="n">4</div><div class="d">23–27 nov</div><h3>Cotización</h3><p>Inversor, baterías, compatibilidad, costos, ahorros y recuperación.</p></div>
+      <div class="step"><div class="n">5</div><div class="d">30 nov–4 dic</div><h3>Presentación</h3><p>Validación, pruebas finales y PDF diseñado para el cliente.</p></div>
+    </div>
+  </div>
+</section>
+
+<section id="propuesta" style="background:var(--cream-2)">
+  <div class="wrap two">
+    <div>
+      <p class="eyebrow">El entregable</p>
+      <h2 style="font-size:clamp(32px,4.5vw,48px);margin-bottom:18px">Un documento que ayuda a decidir</h2>
+      <p>La aplicación genera un PDF que parece una propuesta real de una empresa de ingeniería. El cliente entiende qué se instalaría, cuánto costaría, cuánto podría ahorrar y por qué confiar en los resultados.</p>
+      <ul class="list" style="margin-top:22px">
+        <li>Portada y resumen ejecutivo</li>
+        <li>Análisis del consumo del aula</li>
+        <li>Sistema recomendado y componentes reales</li>
+        <li>Presupuesto, ahorro estimado y retorno de inversión</li>
+        <li>Gráficas y anexos técnicos</li>
+        <li>Hipótesis y limitaciones, siempre visibles</li>
+      </ul>
+    </div>
+    <div class="doc" aria-label="Ejemplo de estructura del reporte">
+      <div class="top"></div>
+      <h3>Propuesta solar</h3>
+      <p style="margin:0 0 16px;font-size:15px;color:var(--brown-2)">Estructura del reporte (sin cifras de ejemplo)</p>
+      <div class="row"><span>1. Resumen ejecutivo</span><b>→</b></div>
+      <div class="row"><span>2. Consumo del aula</span><b>→</b></div>
+      <div class="row"><span>3. Sistema recomendado</span><b>→</b></div>
+      <div class="row"><span>4. Componentes y presupuesto</span><b>→</b></div>
+      <div class="row"><span>5. Ahorro y retorno</span><b>→</b></div>
+      <div class="row"><span>6. Supuestos y anexos</span><b>→</b></div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <div class="head">
+      <p class="eyebrow">Transparencia</p>
+      <h2>Una propuesta honesta</h2>
+    </div>
+    <div class="note">
+      <p>El resultado es un <strong>dimensionamiento y una cotización preliminar</strong>, no un proyecto ejecutivo autorizado para construcción.</p>
+      <p>Los ahorros son estimaciones que dependen de la tarifa en MXN/kWh, la irradiación y las pérdidas del sistema. No se prometen ahorros garantizados.</p>
+      <p>Cada producto del catálogo se acompaña de su enlace y la fecha de consulta, para que los precios y especificaciones se puedan verificar.</p>
+    </div>
+  </div>
+</section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <span class="pill">A01744281</span>
+    <p><strong>Solvia</strong> · Celdas solares</p>
+    <p>Proyecto final de TE1020 · Análisis de Circuitos Eléctricos</p>
+    <p>Alineado con el ODS 7 (Energía asequible y no contaminante) y el ODS 12 (Producción y consumo responsables).</p>
+  </div>
+</footer>
+
+</body>
+</html>
